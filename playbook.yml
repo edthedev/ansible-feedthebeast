@@ -12,6 +12,11 @@
       file: dest='{{ root_dir }}' state=directory
     - name: unzip server zip
       unarchive: src={{ server_zip }} dest={{ root_dir }}
+    - name: start up
+#      notify: start server
+      shell: screen -S "feedthebeast" -d -m "cd {{root_dir}}; sh {{ root_dir }}/ServerStart.sh"
+      tags:
+       - start
   handlers:
     - name: start server
       shell: "cd {{root_dir}}; sh {{ root_dir }}/ServerStart.sh"
