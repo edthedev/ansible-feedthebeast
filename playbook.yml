@@ -1,0 +1,16 @@
+---
+- hosts: minecraft
+  user: minecraft
+  gather_facts: False 
+  sudo: no
+  vars:
+    - server_zip: modpacks-server.zip
+    - root_dir: /home/minecraft/feedthebeast
+  tasks:
+    - name: make dir
+      file: dest='{{ root_dir }}' state=directory
+    - name: upload server zip
+      file: source={{ server_zip }} dest={{ root_dir }}
+  handlers:
+    - name: restart apache
+      action: service name=httpd state=restarted enabled=yes
