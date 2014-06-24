@@ -9,8 +9,8 @@
   tasks:
     - name: make dir
       file: dest='{{ root_dir }}' state=directory
-    - name: upload server zip
-      file: source={{ server_zip }} dest={{ root_dir }}
+    - name: copy server zip
+      copy: src={{ server_zip }} dest={{ root_dir }}
   handlers:
     - name: restart apache
       action: service name=httpd state=restarted enabled=yes
