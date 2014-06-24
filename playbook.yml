@@ -4,13 +4,14 @@
   gather_facts: False 
   sudo: no
   vars:
+    # TODO: Be sure to download modpacks-server.zip next to this playbook file.
     - server_zip: modpacks-server.zip
     - root_dir: /home/minecraft/feedthebeast
   tasks:
     - name: make dir
       file: dest='{{ root_dir }}' state=directory
-    - name: copy server zip
-      copy: src={{ server_zip }} dest={{ root_dir }}
+    - name: unzip server zip
+      unarchive: src={{ server_zip }} dest={{ root_dir }}
   handlers:
-    - name: restart apache
-      action: service name=httpd state=restarted enabled=yes
+    - name: start server
+      shell: sh {{ root_dir }}/ServerStart.sh
