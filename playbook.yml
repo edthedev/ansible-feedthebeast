@@ -14,4 +14,4 @@
       unarchive: src={{ server_zip }} dest={{ root_dir }}
   handlers:
     - name: start server
-      shell: sh {{ root_dir }}/ServerStart.sh
+      shell: "cd {{root_dir}}; sh {{ root_dir }}/ServerStart.sh"
